@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Environment files
+.env
+
+# Docker data (if any bind mounts created locally)
+docker/data/
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
