@@ -6,11 +6,12 @@
 # Environment files
 .env
 
-# Docker data (if any bind mounts created locally)
-docker/data/
-
-# IDE
+# IDE & Editors
 .idea/
 .vscode/
 *.sublime-project
 *.sublime-workspace
+
+# Dependency directories (if used in future projects)
+vendor/
+node_modules/
