@@ -63,19 +63,6 @@ services:
     networks:
       - web-net
 
-  # Adminer Database Management GUI (Official 4.8.1 Stable)
-  adminer:
-    image: adminer:4.8.1
-    container_name: web-adminer
-    restart: unless-stopped
-    ports:
-      - "${ADMINER_PORT:-8080}:8080"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - web-net
-
 volumes:
   postgres_data:
     driver: local
