@@ -11,6 +11,7 @@
     "Menyusun penyajian data tabular menggunakan elemen tabel HTML (`<table>`, `<thead>`, `<tbody>`, `<tr>`, `<th>`, `<td>`, `rowspan`, `colspan`).",
     "Membuat antarmuka input data formulir HTML menggunakan elemen `<form>`, `<label>`, `<input>`, `<select>`, `<option>`, dan `<button>`.",
     "Memahami mekanisme validasi input dasar bawaan HTML5 menggunakan atribut `required`, `min`, dan `max`.",
+    [Menyimpan dan mengelola seluruh source code praktikum pada repositori GitHub: #link("https://github.com/hafidzrafi/DnPWeb2026")[https://github.com/hafidzrafi/DnPWeb2026].],
   ))
 
   #praktikum(data: (
@@ -213,6 +214,30 @@
           [Jika atribut `action` tidak ditentukan, browser secara default akan mengirimkan data formulir ke URL halaman itu sendiri (current page) dan me-refresh halaman tanpa ada pemrosesan data ke sisi server (backend maupun database).]
         ),
       ),
+    ),
+  ))
+
+  #tugas(data: (
+    (
+      subbab: "Tautan Repositori GitHub",
+      konten: [
+        Seluruh berkas kode sumber praktikum, struktur direktori aplikasi SIMPUS-Mini, serta dokumen jobsheet ini telah dikelola dan dipublikasikan melalui repositori GitHub resmi berikut:
+
+        #v(0.5em)
+        #align(center)[
+          #block(
+            fill: rgb("#f5f5f5"),
+            stroke: 1pt + rgb("#e0e0e0"),
+            radius: 4pt,
+            inset: 12pt,
+            width: 100%,
+            [
+              *URL Repositori GitHub:* \
+              #link("https://github.com/hafidzrafi/DnPWeb2026")[https://github.com/hafidzrafi/DnPWeb2026]
+            ]
+          )
+        ]
+      ],
     ),
   ))
 ]
