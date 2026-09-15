@@ -11,7 +11,3 @@
 .vscode/
 *.sublime-project
 *.sublime-workspace
-
-# Dependency directories (if used in future projects)
-vendor/
-node_modules/
