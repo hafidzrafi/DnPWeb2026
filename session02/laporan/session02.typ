@@ -19,12 +19,12 @@
     (
       subbab: "Percobaan 1: Penerapan Skema Warna Global (style.css)",
       deskripsi: [
-        Pada percobaan ini, skema warna biru tema awal (`#1d5b8a`) diubah menjadi warna hijau tua (_Forest Green_ `#1b6b45`) di seluruh file `style.css`. Karena seluruh halaman terhubung menggunakan External CSS (`<link rel="stylesheet">`), perubahan ini langsung diterapkan secara otomatis dan seragam ke seluruh halaman: navbar, judul section, header tabel, dan tombol submit.
+        Pada percobaan ini, skema warna tema awal (`#1d5b8a`) diubah menjadi warna oranye/kuning (`#f0ad4e`) di seluruh file `style.css`. Karena seluruh halaman terhubung menggunakan External CSS (`<link rel="stylesheet">`), perubahan ini langsung diterapkan secara otomatis dan seragam ke seluruh halaman: navbar, judul section, header tabel, dan tombol submit.
 
         ```css
-        /* Contoh Cuplikan Perubahan Warna Tema di style.css */
+        /* Cuplikan Perubahan Warna Tema di style.css */
         header {
-            background-color: #1b6b45;
+            background-color: #f0ad4e;
             color: #fff;
             padding: 1rem 1.5rem;
             display: flex;
@@ -35,11 +35,11 @@
 
         section h2 {
             margin-bottom: 1rem;
-            color: #1b6b45;
+            color: #f0ad4e;
         }
 
         thead {
-            background-color: #1b6b45;
+            background-color: #f0ad4e;
             color: #fff;
         }
         ```
@@ -128,23 +128,20 @@
     (
       subbab: "Percobaan 3: Penambahan Variasi Tombol Aksi (books/list.html)",
       deskripsi: [
-        Pada percobaan ketiga, tombol ketiga ("Detail") disisipkan di antara tombol Edit dan Hapus pada tabel buku. Pada implementasi awal, CSS hanya menargetkan `:first-of-type` (Edit - oranye) dan `:last-of-type` (Hapus - merah). Penambahan tombol di tengah diisolasi menggunakan class khusus `.btn-detail` berwarna _cyan/info_ (`#17a2b8`) agar styling berbasis semantik tetap terjaga tanpa terpengaruh oleh urutan DOM.
+        Pada percobaan ketiga, tombol ketiga ("Detail") disisipkan di antara tombol Edit dan Hapus pada tabel buku. Pada implementasi awal, CSS hanya menargetkan `:first-of-type` (Edit - oranye) dan `:last-of-type` (Hapus - merah). Penambahan tombol di tengah diisolasi menggunakan class khusus `.btn-detail` berwarna biru gelap (`#164869`) agar styling berbasis semantik tetap terjaga tanpa terpengaruh oleh urutan DOM.
 
         ```html
         <td>
             <button type="button">Edit</button>
-            <button type="button" class="btn-detail">Detail</button>
+            <button class="btn-detail" type="button">Detail</button>
             <button type="button">Hapus</button>
         </td>
         ```
 
         ```css
-        td button.btn-detail {
-            background-color: #17a2b8;
+        .btn-detail {
+            background-color: #164869;
             color: #fff;
-        }
-        td button.btn-detail:hover {
-            background-color: #138496;
         }
         ```
 
@@ -163,7 +160,7 @@
 
         ```css
         header {
-            background-color: #1b6b45;
+            background-color: #f0ad4e;
             color: #fff;
             padding: 1rem 1.5rem;
             display: flex;
@@ -179,22 +176,40 @@
         )
       ],
       langkah: (),
-      pertanyaan: (),
+      pertanyaan: (
+        (
+          [Bagaimana mekanisme External CSS memungkinkan pembaruan tampilan global secara efisien?],
+          [External CSS memisahkan kode markup struktural HTML dari aturan presentasi visual. Melalui tag `<link rel="stylesheet" href="...">`, banyak dokumen HTML mereferensikan satu file CSS terpusat (`style.css`). Browser mengunduh dan menyimpan cache file CSS tersebut sekali. Setiap kali aturan warna tema, tipografi, atau layout diubah pada file CSS, seluruh halaman yang mengimpor file tersebut secara otomatis memperbarui tampilannya secara serentak tanpa memerlukan modifikasi pada file HTML masing-masing.]
+        ),
+        (
+          [Mengapa selector struktural seperti :first-of-type dan :last-of-type memiliki keterbatasan dibanding class-based selector pada komponen dinamis?],
+          [Selector `:first-of-type` dan `:last-of-type` bekerja murni berdasarkan *posisi/urutan indeks elemen anak* di dalam Document Object Model (DOM), bukan berdasarkan *makna/fungsi semantik* elemen tersebut. Jika struktur antarmuka bertambah atau urutan tombol berubah (misalnya menambahkan tombol aksi baru), selector posisi tersebut dapat salah sasaran atau tidak mengenai elemen baru. Menggunakan class-based selector (seperti `.btn-detail`) jauh lebih modular, eksplisit, dan tahan terhadap perubahan struktur DOM.]
+        ),
+      ),
     ),
   ))
 
   #tugas(data: (
     (
-      pertanyaan: "Bagaimana mekanisme External CSS memungkinkan pembaruan tampilan global secara efisien?",
-      jawaban: [
-        External CSS memisahkan kode markup struktural HTML dari aturan presentasi visual. Melalui tag `<link rel="stylesheet" href="...">`, banyak dokumen HTML mereferensikan satu file CSS terpusat (`style.css`). Browser mengunduh dan menyimpan cache file CSS tersebut sekali. Setiap kali aturan warna tema, tipografi, atau layout diubah pada file CSS, seluruh halaman yang mengimpor file tersebut secara otomatis memperbarui tampilannya secara serentak tanpa memerlukan modifikasi pada file HTML masing-masing.
-      ]
-    ),
-    (
-      pertanyaan: "Mengapa selector struktural seperti :first-of-type dan :last-of-type memiliki keterbatasan dibanding class-based selector pada komponen dinamis?",
-      jawaban: [
-        Selector `:first-of-type` dan `:last-of-type` bekerja murni berdasarkan *posisi/urutan indeks elemen anak* di dalam Document Object Model (DOM), bukan berdasarkan *makna/fungsi semantik* elemen tersebut. Jika struktur antarmuka bertambah atau urutan tombol berubah (misalnya menambahkan tombol aksi baru), selector posisi tersebut dapat salah sasaran atau tidak mengenai elemen baru. Menggunakan class-based selector (seperti `.btn-detail`, `.btn-edit`, `.btn-delete`) jauh lebih modular, eksplisit, dan tahan terhadap perubahan struktur DOM.
-      ]
+      subbab: "Tautan Repositori GitHub",
+      konten: [
+        Seluruh berkas kode sumber praktikum, struktur direktori aplikasi SIMPUS-Mini, serta dokumen jobsheet ini telah dikelola dan dipublikasikan melalui repositori GitHub resmi berikut:
+
+        #v(0.5em)
+        #align(center)[
+          #block(
+            fill: rgb("#f5f5f5"),
+            stroke: 1pt + rgb("#e0e0e0"),
+            radius: 4pt,
+            inset: 12pt,
+            width: 100%,
+            [
+              *URL Repositori GitHub:* \
+              #link("https://github.com/hafidzrafi/DnPWeb2026")[https://github.com/hafidzrafi/DnPWeb2026]
+            ]
+          )
+        ]
+      ],
     ),
   ))
 ]
