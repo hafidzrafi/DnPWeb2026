@@ -13,3 +13,4 @@
 *.sublime-workspace
 
 answers.md
+.playwright-mcp
