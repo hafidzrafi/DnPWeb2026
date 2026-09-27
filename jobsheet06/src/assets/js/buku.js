@@ -1,40 +1,25 @@
+/**
+ * Jobsheet 06 - Fetch API & JSON (Buku)
+ * SIMPUS-Mini Starter Skeleton
+ */
+
 // Mengambil & menampilkan Daftar Buku secara asinkron dari data/buku.json
 async function muatDaftarBuku() {
     const tbody = document.querySelector(".table-responsive table tbody");
     const loading = document.getElementById("loading-indicator");
     if (!tbody) return;
 
-    loading.style.display = "block";
-    tbody.innerHTML = "";
+    // TODO: Langkah 1 - Tampilkan indikator loading dan bersihkan isi tbody
 
     try {
-        // simulasi delay jaringan agar loading indicator terlihat
-        await new Promise((resolve) => setTimeout(resolve, 600));
-
-        const res = await fetch("../data/buku.json");
-        if (!res.ok) {
-            throw new Error("Gagal mengambil data (status " + res.status + ")");
-        }
-        const daftarBuku = await res.json();
-
-        daftarBuku.forEach(function (buku) {
-            const tr = document.createElement("tr");
-            tr.innerHTML =
-                "<td>" + buku.judul + "</td>" +
-                "<td>" + buku.pengarang + "</td>" +
-                "<td>" + buku.tahun + "</td>" +
-                "<td>" + buku.stok + "</td>" +
-                "<td>" +
-                "<button type=\"button\">Edit</button> " +
-                "<button type=\"button\" class=\"btn-hapus\">Hapus</button>" +
-                "</td>";
-            tbody.appendChild(tr);
-        });
+        // TODO: Langkah 2 - Lakukan request HTTP GET menggunakan fetch('../data/buku.json')
+        // TODO: Langkah 3 - Periksa response.ok, lemparkan Error jika response tidak sukses
+        // TODO: Langkah 4 - Konversi response ke JSON dengan response.json()
+        // TODO: Langkah 5 - Lakukan perulangan data buku dan render elemen <tr> ke dalam tbody
     } catch (err) {
-        tbody.innerHTML =
-            "<tr><td colspan=\"5\">Gagal memuat data: " + err.message + "</td></tr>";
+        // TODO: Langkah 6 - Tangani kesalahan jika pengambilan data gagal dan tampilkan pesan error
     } finally {
-        loading.style.display = "none";
+        // TODO: Langkah 7 - Sembunyikan indikator loading
     }
 }
 
