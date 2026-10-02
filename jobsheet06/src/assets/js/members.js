@@ -1,25 +1,39 @@
-/**
- * Jobsheet 06 - Fetch API & JSON (Members)
- * SIMPUS-Mini Starter Skeleton
- */
-
-// Mengambil & menampilkan Daftar Anggota secara asinkron dari data/members.json
+// Mengambil & menampilkan Daftar Anggota secara asinkron dari data/anggota.json
 async function muatDaftarAnggota() {
     const tbody = document.querySelector(".table-responsive table tbody");
     const loading = document.getElementById("loading-indicator");
     if (!tbody) return;
 
-    // TODO: Langkah 1 - Tampilkan indikator loading dan bersihkan isi tbody
+    if (loading) loading.style.display = "block";
+    tbody.innerHTML = "";
 
     try {
-        // TODO: Langkah 2 - Lakukan request HTTP GET menggunakan fetch('../data/members.json')
-        // TODO: Langkah 3 - Validasi status response
-        // TODO: Langkah 4 - Konversi data JSON
-        // TODO: Langkah 5 - Render elemen <tr> untuk setiap anggota ke dalam tbody
+        await new Promise((resolve) => setTimeout(resolve, 600));
+
+        const res = await fetch("../data/anggota.json");
+        if (!res.ok) {
+            throw new Error("Gagal mengambil data (status " + res.status + ")");
+        }
+        const daftarAnggota = await res.json();
+
+        daftarAnggota.forEach(function (anggota) {
+            const tr = document.createElement("tr");
+            tr.innerHTML =
+                "<td>" + anggota.no_anggota + "</td>" +
+                "<td>" + anggota.nama + "</td>" +
+                "<td>" + anggota.alamat + "</td>" +
+                "<td>" + anggota.no_hp + "</td>" +
+                "<td>" +
+                "<button type=\"button\">Edit</button> " +
+                "<button type=\"button\" class=\"btn-hapus\">Hapus</button>" +
+                "</td>";
+            tbody.appendChild(tr);
+        });
     } catch (err) {
-        // TODO: Langkah 6 - Tampilkan pesan error jika request gagal
+        tbody.innerHTML =
+            "<tr><td colspan=\"5\">Gagal memuat data: " + err.message + "</td></tr>";
     } finally {
-        // TODO: Langkah 7 - Sembunyikan indikator loading
+        if (loading) loading.style.display = "none";
     }
 }
 
