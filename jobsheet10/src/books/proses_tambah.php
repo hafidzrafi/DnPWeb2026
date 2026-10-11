@@ -1,8 +1,5 @@
 <?php
-/**
- * Jobsheet 08 - Koneksi PostgreSQL (Buku)
- * Skeleton proses_tambah.php
- */
+require_once __DIR__ . '/../includes/auth.php';
 session_start();
 require_once __DIR__ . '/../includes/koneksi.php';
 
@@ -11,24 +8,48 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// TODO: Langkah 1 - Ambil input $_POST dan bersihkan nilainya
-// $judul = trim($_POST['judul'] ?? '');
-// $pengarang = trim($_POST['pengarang'] ?? '');
-// $tahun = (int) ($_POST['tahun'] ?? 0);
-// $isbn = trim($_POST['isbn'] ?? '');
-// $stok = (int) ($_POST['stok'] ?? 0);
-// $kategori = trim($_POST['kategori'] ?? '');
+$judul = trim($_POST['judul'] ?? '');
+$pengarang = trim($_POST['pengarang'] ?? '');
+$tahun = $_POST['tahun'] ?? '';
+$isbn = trim($_POST['isbn'] ?? '');
+$stok = $_POST['stok'] ?? '';
+$kategori = trim($_POST['kategori'] ?? '');
 
-// TODO: Langkah 2 - Validasi input data
+$errors = [];
+if ($judul === '') {
+    $errors[] = "Judul wajib diisi.";
+}
+if ($pengarang === '') {
+    $errors[] = "Pengarang wajib diisi.";
+}
+if (!is_numeric($tahun) || $tahun < 1900 || $tahun > 2026) {
+    $errors[] = "Tahun harus di antara 1900-2026.";
+}
+if (!is_numeric($stok) || $stok < 0) {
+    $errors[] = "Stok tidak boleh negatif.";
+}
 
-// TODO: Langkah 3 - Siapkan Prepared Statement PDO untuk INSERT ke tabel buku:
-// $sql = "INSERT INTO buku (judul, pengarang, tahun, isbn, stok, kategori) VALUES (:judul, :pengarang, :tahun, :isbn, :stok, :kategori)";
-// $stmt = $pdo->prepare($sql);
-// $stmt->execute([...]);
+if (!empty($errors)) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => implode(' ', $errors)];
+    header('Location: tambah.php');
+    exit;
+}
 
-// TODO: Langkah 4 - Set flash message sukses
-$_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Data buku diproses.'];
+try {
+    $stmt = $pdo->prepare("INSERT INTO buku (judul, pengarang, tahun, isbn, stok, kategori) VALUES (:judul, :pengarang, :tahun, :isbn, :stok, :kategori)");
+    $stmt->execute([
+        ':judul' => $judul,
+        ':pengarang' => $pengarang,
+        ':tahun' => (int) $tahun,
+        ':isbn' => $isbn,
+        ':stok' => (int) $stok,
+        ':kategori' => $kategori,
+    ]);
 
-// TODO: Langkah 5 - Redirect ke list.php
+    $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil ditambahkan.'];
+} catch (PDOException $e) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Gagal menyimpan buku: ' . $e->getMessage()];
+}
+
 header('Location: list.php');
 exit;

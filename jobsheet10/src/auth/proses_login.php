@@ -1,9 +1,11 @@
 <?php
 /**
  * Jobsheet 10 - Autentikasi & Manajemen Sesi
- * Skeleton proses_login.php
+ * Proses Login Pengguna
  */
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/../includes/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -14,23 +16,37 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $username = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
 
-// TODO: Langkah 1 - Query pengguna berdasarkan username dari tabel users
-// $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
-// $stmt->execute([':username' => $username]);
-// $user = $stmt->fetch();
+if ($username === '' || $password === '') {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Username dan password wajib diisi.'];
+    header('Location: login.php');
+    exit;
+}
 
-// TODO: Langkah 2 - Verifikasi password menggunakan password_verify($password, $user['password'])
-// if ($user && password_verify($password, $user['password'])) {
-//     $_SESSION['user'] = [
-//         'id' => $user['id'],
-//         'username' => $user['username'],
-//         'role' => $user['role'] ?? 'petugas'
-//     ];
-//     $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Login berhasil. Selamat datang!'];
-//     header('Location: ../index.php');
-//     exit;
-// }
+try {
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->execute([':username' => $username]);
+    $user = $stmt->fetch();
 
-$_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Username atau password salah.'];
-header('Location: login.php');
-exit;
+    if ($user && password_verify($password, $user['password'])) {
+        // Mencegah Session Fixation
+        session_regenerate_id(true);
+
+        $_SESSION['user'] = [
+            'id' => $user['id'],
+            'nama' => $user['nama'],
+            'username' => $user['username'],
+            'role' => $user['role'] ?? 'petugas',
+        ];
+        $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Login berhasil! Selamat datang, ' . htmlspecialchars($user['nama']) . '.'];
+        header('Location: ../index.php');
+        exit;
+    }
+
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Username atau password salah.'];
+    header('Location: login.php');
+    exit;
+} catch (PDOException $e) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Terjadi kesalahan sistem: ' . $e->getMessage()];
+    header('Location: login.php');
+    exit;
+}

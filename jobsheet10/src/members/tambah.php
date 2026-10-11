@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../includes/auth.php';
 $page_title = "Tambah Anggota";
 require_once __DIR__ . '/../includes/header.php';
 ?>

@@ -1,9 +1,11 @@
 <?php
 /**
  * Jobsheet 10 - Autentikasi & Manajemen Sesi
- * Skeleton proses_register.php
+ * Proses Registrasi Pengguna Baru
  */
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/../includes/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -11,20 +13,49 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+$nama = trim($_POST['nama'] ?? '');
 $username = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
 
-// TODO: Langkah 1 - Validasi input username dan password
+$errors = [];
+if ($username === '') {
+    $errors[] = 'Username wajib diisi.';
+}
+if (strlen($password) < 6) {
+    $errors[] = 'Password minimal 6 karakter.';
+}
+if ($nama === '') {
+    $nama = $username;
+}
 
-// TODO: Langkah 2 - Cek apakah username sudah digunakan di database
+if (!empty($errors)) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => implode(' ', $errors)];
+    header('Location: register.php');
+    exit;
+}
 
-// TODO: Langkah 3 - Hash password menggunakan algoritma BCRYPT:
-// $hash = password_hash($password, PASSWORD_BCRYPT);
+try {
+    $cek = $pdo->prepare("SELECT id FROM users WHERE username = :username");
+    $cek->execute([':username' => $username]);
+    if ($cek->fetch()) {
+        $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Username sudah digunakan. Silakan pilih username lain.'];
+        header('Location: register.php');
+        exit;
+    }
 
-// TODO: Langkah 4 - Simpan user baru ke tabel users:
-// $stmt = $pdo->prepare("INSERT INTO users (username, password, role) VALUES (:username, :password, 'petugas')");
-// $stmt->execute([':username' => $username, ':password' => $hash]);
+    $hash = password_hash($password, PASSWORD_BCRYPT);
+    $stmt = $pdo->prepare("INSERT INTO users (nama, username, password, role) VALUES (:nama, :username, :password, 'petugas')");
+    $stmt->execute([
+        ':nama' => $nama,
+        ':username' => $username,
+        ':password' => $hash,
+    ]);
 
-$_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Registrasi akun berhasil. Silakan login.'];
-header('Location: login.php');
-exit;
+    $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Registrasi akun berhasil. Silakan login.'];
+    header('Location: login.php');
+    exit;
+} catch (PDOException $e) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Terjadi kesalahan sistem: ' . $e->getMessage()];
+    header('Location: register.php');
+    exit;
+}

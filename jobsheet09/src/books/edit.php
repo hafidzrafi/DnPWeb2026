@@ -4,11 +4,19 @@ require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/koneksi.php';
 
 $id = $_GET['id'] ?? null;
-// TODO: Ambil data buku yang akan diedit berdasarkan $id dari database
-// $stmt = $pdo->prepare("SELECT * FROM buku WHERE id = :id");
-// $stmt->execute([':id' => $id]);
-// $buku = $stmt->fetch();
-$buku = null;
+if (!$id) {
+    header('Location: list.php');
+    exit;
+}
+
+$stmt = $pdo->prepare("SELECT * FROM buku WHERE id = :id");
+$stmt->execute([':id' => $id]);
+$buku = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$buku) {
+    header('Location: list.php');
+    exit;
+}
 ?>
 
 <div class="page-header">
@@ -18,21 +26,21 @@ $buku = null;
 
 <div class="form-container">
     <form action="proses_edit.php" method="POST">
-        <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? '') ?>">
+        <input type="hidden" name="id" value="<?= htmlspecialchars($buku['id']) ?>">
 
         <div class="form-group">
             <label for="judul">Judul Buku *</label>
-            <input type="text" id="judul" name="judul" required value="<?= htmlspecialchars($buku['judul'] ?? '') ?>">
+            <input type="text" id="judul" name="judul" required value="<?= htmlspecialchars($buku['judul']) ?>">
         </div>
 
         <div class="form-group">
             <label for="pengarang">Pengarang *</label>
-            <input type="text" id="pengarang" name="pengarang" required value="<?= htmlspecialchars($buku['pengarang'] ?? '') ?>">
+            <input type="text" id="pengarang" name="pengarang" required value="<?= htmlspecialchars($buku['pengarang']) ?>">
         </div>
 
         <div class="form-group">
             <label for="tahun">Tahun Terbit *</label>
-            <input type="number" id="tahun" name="tahun" required min="1900" max="2026" value="<?= htmlspecialchars($buku['tahun'] ?? '2024') ?>">
+            <input type="number" id="tahun" name="tahun" required min="1900" max="2026" value="<?= htmlspecialchars($buku['tahun']) ?>">
         </div>
 
         <div class="form-group">
@@ -42,7 +50,7 @@ $buku = null;
 
         <div class="form-group">
             <label for="stok">Jumlah Stok *</label>
-            <input type="number" id="stok" name="stok" required min="0" value="<?= htmlspecialchars($buku['stok'] ?? '1') ?>">
+            <input type="number" id="stok" name="stok" required min="0" value="<?= htmlspecialchars($buku['stok']) ?>">
         </div>
 
         <div class="form-group">
