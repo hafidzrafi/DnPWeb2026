@@ -4,11 +4,19 @@ require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/koneksi.php';
 
 $id = $_GET['id'] ?? null;
-// TODO: Query data anggota berdasarkan $id
-// $stmt = $pdo->prepare("SELECT * FROM anggota WHERE id = :id");
-// $stmt->execute([':id' => $id]);
-// $anggota = $stmt->fetch();
-$anggota = null;
+if (!$id) {
+    header('Location: list.php');
+    exit;
+}
+
+$stmt = $pdo->prepare("SELECT * FROM anggota WHERE id = :id");
+$stmt->execute([':id' => $id]);
+$anggota = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$anggota) {
+    header('Location: list.php');
+    exit;
+}
 ?>
 
 <div class="page-header">
@@ -18,26 +26,26 @@ $anggota = null;
 
 <div class="form-container">
     <form action="proses_edit.php" method="POST">
-        <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? '') ?>">
-
-        <div class="form-group">
-            <label for="no_anggota">Nomor Anggota *</label>
-            <input type="text" id="no_anggota" name="no_anggota" required value="<?= htmlspecialchars($anggota['no_anggota'] ?? '') ?>">
-        </div>
+        <input type="hidden" name="id" value="<?= htmlspecialchars($anggota['id']) ?>">
 
         <div class="form-group">
             <label for="nama">Nama Lengkap *</label>
-            <input type="text" id="nama" name="nama" required value="<?= htmlspecialchars($anggota['nama'] ?? '') ?>">
+            <input type="text" id="nama" name="nama" required value="<?= htmlspecialchars($anggota['nama']) ?>">
         </div>
 
         <div class="form-group">
-            <label for="no_hp">Nomor HP</label>
-            <input type="tel" id="no_hp" name="no_hp" value="<?= htmlspecialchars($anggota['no_hp'] ?? '') ?>">
+            <label for="no_anggota">Nomor Anggota *</label>
+            <input type="text" id="no_anggota" name="no_anggota" required value="<?= htmlspecialchars($anggota['no_anggota']) ?>">
         </div>
 
         <div class="form-group">
             <label for="alamat">Alamat</label>
-            <textarea id="alamat" name="alamat" rows="3"><?= htmlspecialchars($anggota['alamat'] ?? '') ?></textarea>
+            <input type="text" id="alamat" name="alamat" value="<?= htmlspecialchars($anggota['alamat'] ?? '') ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="no_hp">Nomor Handphone</label>
+            <input type="text" id="no_hp" name="no_hp" value="<?= htmlspecialchars($anggota['no_hp'] ?? '') ?>">
         </div>
 
         <div class="form-actions">

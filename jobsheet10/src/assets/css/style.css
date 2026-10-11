@@ -279,3 +279,167 @@ footer {
     color: #991b1b;
     border: 1px solid #fecaca;
 }
+
+/* ===== Card & Grid ===== */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+    color: #1d5b8a;
+}
+
+.dashboard-header {
+    margin-bottom: 1.5rem;
+}
+
+/* ===== Auth Container ===== */
+.auth-container {
+    max-width: 450px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.auth-container h2 {
+    color: #1d5b8a;
+    margin-bottom: 0.5rem;
+}
+
+.auth-container p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #cdd4da;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+/* ===== Buttons & Navbar Extras ===== */
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #1d5b8a;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #164869;
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+    color: #1e293b;
+    text-decoration: none;
+}
+
+.btn-danger {
+    background-color: #dc2626;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #b91c1c;
+    color: #fff;
+}
+
+.btn-sm {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.85rem;
+}
+
+.user-greeting {
+    margin-right: 0.75rem;
+    color: #e0f2fe;
+    font-size: 0.9rem;
+}
+
+.btn-logout {
+    background-color: #dc2626;
+    color: #fff !important;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.btn-logout:hover {
+    background-color: #b91c1c;
+    text-decoration: none;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.logo:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+

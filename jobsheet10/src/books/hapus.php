@@ -1,17 +1,25 @@
 <?php
-/**
- * Jobsheet 09 - CRUD Penuh (Buku)
- * Skeleton hapus.php
- */
+require_once __DIR__ . '/../includes/auth.php';
 session_start();
 require_once __DIR__ . '/../includes/koneksi.php';
 
-$id = $_GET['id'] ?? null;
+// Sengaja hanya menerima POST (bukan GET) agar penghapusan tidak bisa
+// dipicu tanpa sengaja lewat link/preview crawler.
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: list.php');
+    exit;
+}
 
-// TODO: Langkah 1 - Cek jika ID tersedia
-// TODO: Langkah 2 - Jalankan query DELETE dari tabel buku menggunakan PDO prepared statement:
-// DELETE FROM buku WHERE id = :id
+$id = $_POST['id'] ?? null;
+if ($id) {
+    try {
+        $stmt = $pdo->prepare("DELETE FROM buku WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil dihapus dari database.'];
+    } catch (PDOException $e) {
+        $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Gagal menghapus buku: ' . $e->getMessage()];
+    }
+}
 
-$_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Data buku berhasil dihapus.'];
 header('Location: list.php');
 exit;

@@ -1,8 +1,5 @@
 <?php
-/**
- * Jobsheet 08 - Koneksi PostgreSQL (Anggota)
- * Skeleton proses_tambah.php
- */
+require_once __DIR__ . '/../includes/auth.php';
 session_start();
 require_once __DIR__ . '/../includes/koneksi.php';
 
@@ -11,22 +8,38 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// TODO: Langkah 1 - Ambil input $_POST (no_anggota, nama, no_hp, alamat)
-// $no_anggota = trim($_POST['no_anggota'] ?? '');
-// $nama = trim($_POST['nama'] ?? '');
-// $no_hp = trim($_POST['no_hp'] ?? '');
-// $alamat = trim($_POST['alamat'] ?? '');
+$nama = trim($_POST['nama'] ?? '');
+$noAnggota = trim($_POST['no_anggota'] ?? '');
+$alamat = trim($_POST['alamat'] ?? '');
+$noHp = trim($_POST['no_hp'] ?? '');
 
-// TODO: Langkah 2 - Validasi input data
+$errors = [];
+if ($nama === '') {
+    $errors[] = "Nama wajib diisi.";
+}
+if ($noAnggota === '') {
+    $errors[] = "No. Anggota wajib diisi.";
+}
 
-// TODO: Langkah 3 - Prepared statement INSERT ke PostgreSQL
-// $sql = "INSERT INTO anggota (no_anggota, nama, no_hp, alamat) VALUES (:no_anggota, :nama, :no_hp, :alamat)";
-// $stmt = $pdo->prepare($sql);
-// $stmt->execute([...]);
+if (!empty($errors)) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => implode(' ', $errors)];
+    header('Location: tambah.php');
+    exit;
+}
 
-// TODO: Langkah 4 - Set flash message
-$_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Data anggota diproses.'];
+try {
+    $stmt = $pdo->prepare("INSERT INTO anggota (nama, no_anggota, alamat, no_hp) VALUES (:nama, :no_anggota, :alamat, :no_hp)");
+    $stmt->execute([
+        ':nama' => $nama,
+        ':no_anggota' => $noAnggota,
+        ':alamat' => $alamat,
+        ':no_hp' => $noHp,
+    ]);
 
-// TODO: Langkah 5 - Redirect ke list.php
+    $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Anggota berhasil ditambahkan.'];
+} catch (PDOException $e) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Gagal menyimpan anggota: ' . $e->getMessage()];
+}
+
 header('Location: list.php');
 exit;
