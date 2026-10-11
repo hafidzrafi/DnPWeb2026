@@ -3,16 +3,23 @@ $page_title = "Daftar Buku";
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/koneksi.php';
 
-// TODO: Query data buku dari PostgreSQL menggunakan PDO
-// $stmt = $pdo->query("SELECT * FROM buku ORDER BY id DESC");
-// $daftar_buku = $stmt->fetchAll();
-$daftar_buku = [];
+try {
+    $stmt = $pdo->query("SELECT * FROM buku ORDER BY id DESC");
+    $daftar_buku = $stmt->fetchAll();
+} catch (PDOException $e) {
+    $daftar_buku = [];
+    $error_msg = $e->getMessage();
+}
 ?>
 
 <div class="page-header">
     <h2>Daftar Buku (PostgreSQL)</h2>
     <a href="tambah.php" class="btn btn-primary">+ Tambah Buku</a>
 </div>
+
+<?php if (isset($error_msg)): ?>
+    <div class="flash flash-error">Database Error: <?= htmlspecialchars($error_msg) ?></div>
+<?php endif; ?>
 
 <div class="table-responsive">
     <table>
@@ -30,7 +37,7 @@ $daftar_buku = [];
         <tbody>
             <?php if (empty($daftar_buku)): ?>
                 <tr>
-                    <td colspan="7" style="text-align: center;">Belum ada data buku di database. Silakan jalankan DDL dan tambah data.</td>
+                    <td colspan="7" style="text-align: center;">Belum ada data buku di database. Silakan tambah data baru.</td>
                 </tr>
             <?php else: ?>
                 <?php foreach ($daftar_buku as $buku): ?>

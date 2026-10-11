@@ -1,36 +1,36 @@
 <?php
-/**
- * Jobsheet 07 - PHP Dasar & Form Handling (Anggota)
- * Skeleton proses_tambah.php
- */
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: list.php');
+$nama = trim($_POST['nama'] ?? '');
+$noAnggota = trim($_POST['no_anggota'] ?? '');
+$alamat = trim($_POST['alamat'] ?? '');
+$noHp = trim($_POST['no_hp'] ?? '');
+
+$errors = [];
+if ($nama === '') {
+    $errors[] = "Nama wajib diisi.";
+}
+if ($noAnggota === '') {
+    $errors[] = "No. Anggota wajib diisi.";
+}
+
+if (!empty($errors)) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => implode(' ', $errors)];
+    header('Location: tambah.php');
     exit;
 }
 
-// TODO: Langkah 1 - Ambil data anggota dari $_POST (nomor_anggota, nama, email, telepon, alamat)
-// $nomor_anggota = trim($_POST['nomor_anggota'] ?? '');
-// $nama = trim($_POST['nama'] ?? '');
-// $email = trim($_POST['email'] ?? '');
-// $telepon = trim($_POST['telepon'] ?? '');
-// $alamat = trim($_POST['alamat'] ?? '');
+if (!isset($_SESSION['anggota'])) {
+    $_SESSION['anggota'] = [];
+}
 
-// TODO: Langkah 2 - Lakukan validasi server-side
-// Cek jika nomor_anggota, nama, atau email kosong, atau format email tidak valid (filter_var)
-// Jika ada error:
-// $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Mohon isi semua field wajib dengan benar.'];
-// header('Location: tambah.php');
-// exit;
+$_SESSION['anggota'][] = [
+    'nama' => $nama,
+    'no_anggota' => $noAnggota,
+    'alamat' => $alamat,
+    'no_hp' => $noHp,
+];
 
-// TODO: Langkah 3 - Simpan data anggota ke dalam array $_SESSION['anggota'][]
-// if (!isset($_SESSION['anggota'])) { $_SESSION['anggota'] = []; }
-// $_SESSION['anggota'][] = [ ... ];
-
-// TODO: Langkah 4 - Set flash message sukses
-// $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Anggota berhasil ditambahkan.'];
-
-// TODO: Langkah 5 - Redirect ke halaman daftar anggota (list.php)
+$_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Anggota berhasil ditambahkan.'];
 header('Location: list.php');
 exit;

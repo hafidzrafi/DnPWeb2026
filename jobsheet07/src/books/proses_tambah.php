@@ -1,38 +1,48 @@
 <?php
-/**
- * Jobsheet 07 - PHP Dasar & Form Handling (Buku)
- * Skeleton proses_tambah.php
- */
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: list.php');
+$judul = trim($_POST['judul'] ?? '');
+$pengarang = trim($_POST['pengarang'] ?? '');
+$tahun = $_POST['tahun'] ?? '';
+$isbn = trim($_POST['isbn'] ?? '');
+$stok = $_POST['stok'] ?? '';
+$kategori = trim($_POST['kategori'] ?? '');
+
+// Validasi server-side — wajib ada meski sudah divalidasi JS di Jobsheet 5,
+// karena validasi client bisa dilewati (nonaktifkan JS / kirim request manual).
+$errors = [];
+if ($judul === '') {
+    $errors[] = "Judul wajib diisi.";
+}
+if ($pengarang === '') {
+    $errors[] = "Pengarang wajib diisi.";
+}
+if (!is_numeric($tahun) || $tahun < 1900 || $tahun > 2026) {
+    $errors[] = "Tahun harus di antara 1900-2026.";
+}
+if (!is_numeric($stok) || $stok < 0) {
+    $errors[] = "Stok tidak boleh negatif.";
+}
+
+if (!empty($errors)) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => implode(' ', $errors)];
+    header('Location: tambah.php');
     exit;
 }
 
-// TODO: Langkah 1 - Ambil data dari $_POST dan lakukan sanitasi (trim)
-// $judul = trim($_POST['judul'] ?? '');
-// $pengarang = trim($_POST['pengarang'] ?? '');
-// $tahun = $_POST['tahun'] ?? '';
-// $isbn = trim($_POST['isbn'] ?? '');
-// $stok = $_POST['stok'] ?? '';
-// $kategori = trim($_POST['kategori'] ?? '');
+if (!isset($_SESSION['buku'])) {
+    $_SESSION['buku'] = [];
+}
 
-// TODO: Langkah 2 - Lakukan validasi data di sisi server
-// $errors = [];
-// Cek jika field wajib kosong atau format tahun/stok tidak valid
-// Jika ada error:
-// $_SESSION['flash'] = ['type' => 'error', 'pesan' => implode(' ', $errors)];
-// header('Location: tambah.php');
-// exit;
+$_SESSION['buku'][] = [
+    'judul' => $judul,
+    'pengarang' => $pengarang,
+    'tahun' => (int) $tahun,
+    'isbn' => $isbn,
+    'stok' => (int) $stok,
+    'kategori' => $kategori,
+];
 
-// TODO: Langkah 3 - Simpan data buku ke dalam array $_SESSION['buku'][]
-// if (!isset($_SESSION['buku'])) { $_SESSION['buku'] = []; }
-// $_SESSION['buku'][] = [ ... ];
-
-// TODO: Langkah 4 - Set flash message sukses
-// $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil ditambahkan.'];
-
-// TODO: Langkah 5 - Redirect ke halaman daftar buku (list.php)
+$_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil ditambahkan.'];
 header('Location: list.php');
 exit;
