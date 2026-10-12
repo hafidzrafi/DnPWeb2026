@@ -1,8 +1,4 @@
 <?php
-/**
- * Jobsheet 10 - Autentikasi & Manajemen Sesi
- * Proses Login Pengguna
- */
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -28,7 +24,6 @@ try {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
-        // Mencegah Session Fixation
         session_regenerate_id(true);
 
         $_SESSION['user'] = [

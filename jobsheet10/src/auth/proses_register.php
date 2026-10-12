@@ -1,8 +1,4 @@
 <?php
-/**
- * Jobsheet 10 - Autentikasi & Manajemen Sesi
- * Proses Registrasi Pengguna Baru
- */
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
