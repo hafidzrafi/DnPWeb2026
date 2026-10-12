@@ -22,6 +22,12 @@ try {
     <div class="flash flash-error">Database Error: <?= htmlspecialchars($error_msg) ?></div>
 <?php endif; ?>
 
+<div class="table-toolbar">
+    <div class="search-wrapper">
+        <input type="text" id="search-input" placeholder="Ketik untuk mencari nama, no anggota, atau no hp..." autocomplete="off">
+    </div>
+</div>
+
 <div class="table-responsive">
     <table>
         <thead>

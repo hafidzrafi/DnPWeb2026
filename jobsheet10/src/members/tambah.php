@@ -10,7 +10,7 @@ require_once __DIR__ . '/../includes/header.php';
 </div>
 
 <div class="form-container">
-    <form action="proses_tambah.php" method="POST">
+    <form id="form-tambah" action="proses_tambah.php" method="POST">
         <div class="form-group">
             <label for="no_anggota">Nomor Anggota *</label>
             <input type="text" id="no_anggota" name="no_anggota" required placeholder="Contoh: AG-001">
