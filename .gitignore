@@ -14,3 +14,7 @@
 
 answers.md
 .playwright-mcp
+
+# Documentation & Notes
+*.md
+!README.md
