@@ -10,7 +10,7 @@ require_once __DIR__ . '/../includes/header.php';
 </div>
 
 <div class="form-container">
-    <form action="proses_tambah.php" method="POST">
+    <form id="form-tambah" action="proses_tambah.php" method="POST">
         <div class="form-group">
             <label for="judul">Judul Buku *</label>
             <input type="text" id="judul" name="judul" required placeholder="Contoh: Basis Data Lanjut">
