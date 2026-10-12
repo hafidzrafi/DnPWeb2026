@@ -1,8 +1,4 @@
 <?php
-/**
- * Jobsheet 10 - Autentikasi & Manajemen Sesi
- * Middleware/Guard Session Check
- */
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

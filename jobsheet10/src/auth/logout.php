@@ -1,8 +1,4 @@
 <?php
-/**
- * Jobsheet 10 - Autentikasi & Manajemen Sesi
- * Proses Logout Pengguna
- */
 session_start();
 $_SESSION = [];
 
