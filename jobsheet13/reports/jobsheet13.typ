@@ -153,7 +153,7 @@
         === Menjalankan Aplikasi terhadap Database Itu
 
         ```bash
-        DB_NAME=simpus_laprak_alt DB_SSLMODE=disable php -S 127.0.0.1:8001 -t jobsheet13/src
+        DB_NAME=simpus_laprak_alt DB_SSLMODE=disable php -S 127.0.0.1:8001 -t jobsheet13/src/public
         ```
 
         Akun petugas didaftarkan lewat halaman registrasi, lalu login dilakukan seperti biasa.
@@ -251,7 +251,7 @@
       ],
       langkah: (
         [Menulis ulang `README.md` dengan diagram ERD, matriks fitur per peran, langkah instalasi, dan tabel environment variable.],
-        [Menjalankan setiap langkah manual pengguna pada server `jobsheet13/src` dan mengambil tangkapan layar.],
+        [Menjalankan setiap langkah manual pengguna pada server `jobsheet13/src/public` dan mengambil tangkapan layar.],
         [Menyimpan gambar ke `docs/img/` dengan nama yang mengikuti nomor langkah, lalu merujuknya dari markdown.],
         [Memeriksa setiap tautan gambar menunjuk berkas yang ada.],
         [Menyesuaikan kalimat manual pada bagian riwayat agar sesuai perilaku filter yang benar-benar dipakai.],

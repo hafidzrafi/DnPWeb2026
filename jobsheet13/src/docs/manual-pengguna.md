@@ -1,12 +1,11 @@
-# Manual Pengguna — SIMPUS-Mini
+# Manual Pengguna SIMPUS-Mini
 
 Panduan ini mengikuti tampilan aplikasi apa adanya. Setiap langkah yang membutuhkan
 tangkapan layar disertai gambar dari aplikasi yang benar-benar dijalankan pada 16 November 2026.
 
-URL contoh memakai `http://localhost:8000/...` (PHP built-in server). Bila dijalankan lewat
-Laragon, ganti bagian domainnya saja: `http://jobsheet13.test/...` untuk virtual host langsung,
-atau `http://dp2026.test/kode-praktikum/jobsheet-13/...` bila bersarang di bawah domain proyek.
-Path setelah domain tetap sama.
+URL contoh memakai `http://localhost:8000/...` dari PHP built-in server dengan `public/`
+sebagai document root. Bila dipasang di Apache atau Nginx, ganti bagian domainnya saja; path
+setelah domain tetap sama.
 
 ## 1. Registrasi dan Login Petugas
 
