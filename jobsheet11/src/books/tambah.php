@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../includes/auth.php';
 $page_title = "Tambah Buku";
 require_once __DIR__ . '/../includes/header.php';
 ?>
@@ -9,7 +10,7 @@ require_once __DIR__ . '/../includes/header.php';
 </div>
 
 <div class="form-container">
-    <form action="proses_tambah.php" method="POST">
+    <form id="form-tambah" action="proses_tambah.php" method="POST">
         <?= csrf_field() ?>
         <div class="form-group">
             <label for="judul">Judul Buku *</label>
