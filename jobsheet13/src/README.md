@@ -132,7 +132,7 @@ src/
 │   ├── header.php         # Navbar dan perhitungan path relatif
 │   └── footer.php
 ├── sql/                   # 01-03, dijalankan berurutan
-├── docs/                  # wireframe.md, security-checklist.md, manual-pengguna.md, img/
+├── docs/                  # wireframe.md, security-checklist.md, manual-pengguna.md, deployment.md, img/
 ├── composer.json          # Syarat runtime: PHP 8.2+, ext-pdo, ext-pdo_pgsql
 └── .gitignore
 ```
@@ -144,6 +144,7 @@ src/
 | `docs/wireframe.md` | Rancangan UI/UX halaman login, dashboard, dan alur peminjaman |
 | `docs/security-checklist.md` | Audit keamanan dan bukti pengujiannya |
 | `docs/manual-pengguna.md` | Panduan penggunaan dengan tangkapan layar |
+| `docs/deployment.md` | Langkah deploy ke Supabase dan EthioDeploy, isian environment variable, troubleshooting |
 
 ## Catatan Pengujian
 
