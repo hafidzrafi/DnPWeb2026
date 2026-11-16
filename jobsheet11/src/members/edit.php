@@ -28,7 +28,7 @@ if (!$anggota) {
 <div class="form-container">
     <form action="proses_edit.php" method="POST">
         <?= csrf_field() ?>
-        <input type="hidden" name="id" value="<?= e($anggota['id']) ?>">
+        <input type="hidden" name="id" value="<?= (int) $anggota['id'] ?>">
 
         <div class="form-group">
             <label for="nama">Nama Lengkap *</label>
