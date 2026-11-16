@@ -10,6 +10,7 @@ require_once __DIR__ . '/../includes/header.php';
 
 <div class="form-container">
     <form action="proses_tambah.php" method="POST">
+        <?= csrf_field() ?>
         <div class="form-group">
             <label for="no_anggota">Nomor Anggota *</label>
             <input type="text" id="no_anggota" name="no_anggota" required placeholder="Contoh: AG-001">

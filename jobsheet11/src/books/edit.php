@@ -37,7 +37,7 @@ $buku = null;
 
         <div class="form-group">
             <label for="isbn">ISBN</label>
-            <input type="text" id="isbn" name="isbn" value="<?= htmlspecialchars($buku['isbn'] ?? '') ?>">
+            <input type="text" id="isbn" name="isbn" value="<?= e($buku['isbn'] ?? '') ?>">
         </div>
 
         <div class="form-group">
@@ -47,7 +47,7 @@ $buku = null;
 
         <div class="form-group">
             <label for="kategori">Kategori</label>
-            <input type="text" id="kategori" name="kategori" value="<?= htmlspecialchars($buku['kategori'] ?? '') ?>">
+            <input type="text" id="kategori" name="kategori" value="<?= e($buku['kategori'] ?? '') ?>">
         </div>
 
         <div class="form-actions">

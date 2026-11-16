@@ -2,6 +2,9 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+require_once __DIR__ . '/helpers.php';
+require_once __DIR__ . '/csrf.php';
+
 $base_url = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 $current_folder = basename($base_url);
 $root_path = ($current_folder === 'books' || $current_folder === 'members' || $current_folder === 'auth') ? '..' : '.';
@@ -11,7 +14,7 @@ $root_path = ($current_folder === 'books' || $current_folder === 'members' || $c
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($page_title) ? htmlspecialchars($page_title) . " - SIMPUS-Mini" : "SIMPUS-Mini" ?></title>
+    <title><?= isset($page_title) ? e($page_title) . " - SIMPUS-Mini" : "SIMPUS-Mini" ?></title>
     <link rel="stylesheet" href="<?= $root_path ?>/assets/css/style.css">
 </head>
 <body>
@@ -36,8 +39,8 @@ $root_path = ($current_folder === 'books' || $current_folder === 'members' || $c
 
     <main class="main-content">
         <?php if (!empty($_SESSION['flash'])): ?>
-            <div class="flash flash-<?= htmlspecialchars($_SESSION['flash']['type']) ?>">
-                <?= htmlspecialchars($_SESSION['flash']['pesan']) ?>
+            <div class="flash flash-<?= e($_SESSION['flash']['type']) ?>">
+                <?= e($_SESSION['flash']['pesan']) ?>
             </div>
             <?php unset($_SESSION['flash']); ?>
         <?php endif; ?>

@@ -14,6 +14,7 @@ $daftar_anggota = [];
     <a href="tambah.php" class="btn btn-primary">+ Tambah Anggota</a>
 </div>
 
+    <div class="flash flash-error"><?= e($error_msg) ?></div>
 <div class="table-responsive">
     <table>
         <thead>

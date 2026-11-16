@@ -8,6 +8,7 @@ require_once __DIR__ . '/../includes/header.php';
     <p>Masukkan username dan password untuk mengakses sistem.</p>
 
     <form action="proses_login.php" method="POST">
+        <?= csrf_field() ?>
         <div class="form-group">
             <label for="username">Username *</label>
             <input type="text" id="username" name="username" required placeholder="Username">
