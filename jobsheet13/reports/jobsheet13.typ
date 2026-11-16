@@ -249,6 +249,13 @@
         agar pembaca dapat menemukan berkas yang harus diubah saat menambah modul: konfigurasi di
         `includes/`, skema di `sql/`, dan dokumentasi di `docs/`.
 
+        Nama folder modul memakai `books/` dan `members/`, bukan `buku/` dan `anggota/` seperti pada
+        diagram struktur di jobsheet ini. Nama Inggris itu dipakai sejak Jobsheet 1 dan dipertahankan
+        sampai jobsheet terakhir, sehingga seluruh tautan, guard login di `includes/auth.php`, dan
+        tangkapan layar pada laporan-laporan sebelumnya menunjuk path yang sama. Mengganti nama folder
+        pada tahap ini akan membuat tangkapan layar yang sudah dilampirkan menunjuk URL yang tidak
+        lagi ada.
+
         === Document Root yang Berbeda dari Jobsheet
 
         Jobsheet menjalankan aplikasi dengan `php -S localhost:8000` dari folder aplikasi, sehingga
