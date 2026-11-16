@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../../includes/auth.php';
 $page_title = "Peminjaman Buku Baru";
-require_once __DIR__ . '/../includes/header.php';
-require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../../includes/koneksi.php';
 
 $daftar_anggota = $pdo->query("SELECT id, nama, no_anggota FROM anggota ORDER BY nama ASC")->fetchAll();
 $daftar_buku = $pdo->query("SELECT id, judul, stok FROM buku WHERE stok > 0 ORDER BY judul ASC")->fetchAll();
@@ -58,4 +58,4 @@ $daftar_buku = $pdo->query("SELECT id, judul, stok FROM buku WHERE stok > 0 ORDE
     <?php endif; ?>
 </div>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../../includes/footer.php'; ?>

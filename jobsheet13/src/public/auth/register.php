@@ -7,7 +7,7 @@ if (isset($_SESSION['user'])) {
     header('Location: ../index.php');
     exit;
 }
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../../includes/header.php';
 ?>
 
 <div class="auth-container">
@@ -38,4 +38,4 @@ require_once __DIR__ . '/../includes/header.php';
     </form>
 </div>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../../includes/footer.php'; ?>

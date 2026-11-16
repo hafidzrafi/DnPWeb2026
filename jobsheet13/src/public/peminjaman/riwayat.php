@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../../includes/auth.php';
 $page_title = "Riwayat Peminjaman";
-require_once __DIR__ . '/../includes/header.php';
-require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../../includes/koneksi.php';
 
 $anggota_id = $_GET['anggota_id'] ?? '';
 $daftar_anggota = $pdo->query("SELECT id, nama FROM anggota ORDER BY nama ASC")->fetchAll();
@@ -94,4 +94,4 @@ $daftar_riwayat = $stmt->fetchAll();
     </table>
 </div>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../../includes/footer.php'; ?>

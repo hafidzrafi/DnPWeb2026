@@ -1,8 +1,8 @@
 <?php
 $page_title = "Dashboard Terproteksi";
-require_once __DIR__ . '/includes/auth.php';
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/koneksi.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/koneksi.php';
 
 try {
     $total_buku = (int) $pdo->query("SELECT COUNT(*) FROM buku")->fetchColumn();
@@ -71,4 +71,4 @@ try {
     </div>
 </div>
 
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>

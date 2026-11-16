@@ -90,15 +90,18 @@ berkas itu. Isi kredensial lewat environment variable di server.
 
 ## Menjalankan
 
+Document root adalah `public/`. `includes/`, `sql/`, dan `docs/` sengaja berada di luarnya supaya
+berkas skema dan konfigurasi tidak bisa diminta lewat HTTP.
+
 Opsi 1, PHP built-in server:
 
 ```bash
-DB_SSLMODE=disable php -S localhost:8000
+DB_SSLMODE=disable php -S localhost:8000 -t public
 ```
 
-Opsi 2, Laragon/Apache: arahkan virtual host ke folder ini, misalnya `http://jobsheet13.test/`.
-Path CSS, JS, tautan, dan redirect login dihitung relatif dari `includes/header.php` dan
-`includes/auth.php`, sehingga keduanya berjalan tanpa mengubah kode.
+Opsi 2, Laragon/Apache: arahkan document root virtual host ke `public/`, misalnya
+`http://jobsheet13.test/`. Path CSS, JS, tautan, dan redirect login dihitung relatif dari
+`includes/header.php` dan `includes/auth.php`, sehingga keduanya berjalan tanpa mengubah kode.
 
 Buka `http://localhost:8000/index.php`, lalu daftarkan akun petugas pertama lewat
 `auth/register.php`.
@@ -113,7 +116,13 @@ Buka `http://localhost:8000/index.php`, lalu daftarkan akun petugas pertama lewa
 
 ```
 src/
-├── index.php              # Beranda; statistik dihitung dari database
+├── public/                # Document root; hanya isi folder ini yang bisa diminta lewat HTTP
+│   ├── index.php          # Beranda; statistik dihitung dari database
+│   ├── auth/              # Register, login, logout
+│   ├── books/             # CRUD buku
+│   ├── members/           # CRUD anggota
+│   ├── peminjaman/        # Peminjaman, pengembalian, riwayat
+│   └── assets/
 ├── includes/
 │   ├── config.php         # Nilai konfigurasi dari environment variable
 │   ├── koneksi.php        # Koneksi PDO memakai config.php
@@ -122,13 +131,10 @@ src/
 │   ├── helpers.php        # e() untuk escaping output
 │   ├── header.php         # Navbar dan perhitungan path relatif
 │   └── footer.php
-├── auth/                  # Register, login, logout
-├── books/                 # CRUD buku
-├── members/               # CRUD anggota
-├── peminjaman/            # Peminjaman, pengembalian, riwayat
 ├── sql/                   # 01-03, dijalankan berurutan
 ├── docs/                  # wireframe.md, security-checklist.md, manual-pengguna.md, img/
-└── assets/
+├── composer.json          # Syarat runtime: PHP 8.2+, ext-pdo, ext-pdo_pgsql
+└── .gitignore
 ```
 
 ## Dokumen
@@ -147,3 +153,8 @@ tambah anggota, peminjaman, pengembalian, riwayat, dan logout dijalankan pada se
 
 Override konfigurasi diuji dengan database terpisah: `DB_NAME=simpus_laprak_alt` pada port 8001
 menampilkan dashboard kosong dari database baru tanpa satu baris kode pun diubah.
+
+Setelah document root dipindah ke `public/`, permintaan `/sql/01_buku_anggota.sql` dan
+`/includes/config.php` menghasilkan 404 pada server yang melayani `public/` sebagai root, sedangkan
+`/assets/css/style.css` tetap 200. Alur registrasi, login, daftar buku, daftar anggota, peminjaman,
+dan riwayat diuji ulang pada struktur baru.

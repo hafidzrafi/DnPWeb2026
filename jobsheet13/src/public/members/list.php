@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../../includes/auth.php';
 $page_title = "Daftar Anggota - CRUD";
-require_once __DIR__ . '/../includes/header.php';
-require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../../includes/koneksi.php';
 
 try {
     $stmt = $pdo->query("SELECT * FROM anggota ORDER BY id DESC");
@@ -69,4 +69,4 @@ try {
     </table>
 </div>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
