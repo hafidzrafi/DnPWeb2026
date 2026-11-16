@@ -59,11 +59,11 @@ try {
                         <td><?= e($buku['stok'] ?? '') ?></td>
                         <td><?= e($buku['kategori'] ?? '') ?></td>
                         <td>
-                            <a href="edit.php?id=<?= urlencode($buku['id']) ?>" class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.85rem;">Edit</a>
-                            <form action="hapus.php" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus buku ini?');">
+                            <a href="edit.php?id=<?= urlencode($buku['id']) ?>" class="btn btn-secondary btn-sm">Edit</a>
+                            <form action="hapus.php" method="POST" class="inline-form" data-confirm="Hapus buku ini?">
                                 <?= csrf_field() ?>
                                 <input type="hidden" name="id" value="<?= e($buku['id']) ?>">
-                                <button type="submit" class="btn" style="background:#dc2626; color:#fff; border:none; padding: 4px 8px; font-size: 0.85rem; cursor:pointer;">Hapus</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                             </form>
                         </td>
                     </tr>

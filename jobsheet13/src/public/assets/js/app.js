@@ -2,13 +2,9 @@ function initThemeToggle() {
     const btn = document.getElementById("theme-toggle-btn");
     if (!btn) return;
 
-    const isDark = document.documentElement.classList.contains("dark-theme");
-    btn.textContent = isDark ? "☀️" : "🌙";
-
     btn.addEventListener("click", function () {
         const isDarkNow = document.documentElement.classList.toggle("dark-theme");
         localStorage.setItem("theme", isDarkNow ? "dark" : "light");
-        btn.textContent = isDarkNow ? "☀️" : "🌙";
     });
 }
 
@@ -58,7 +54,7 @@ function clearInlineError(input) {
     }
 }
 
-function initValidasiForm() {
+function initFormValidation() {
     const forms = document.querySelectorAll("#form-tambah, #form-edit");
     if (!forms.length) return;
 
@@ -133,14 +129,11 @@ function initValidasiForm() {
     });
 }
 
-function initActionConfirm() {
+function initConfirmForms() {
     document.addEventListener("submit", function (e) {
-        const form = e.target;
-        if (form.classList.contains("form-hapus") && !form.getAttribute("onsubmit")) {
-            const confirmed = confirm("Apakah Anda yakin ingin menghapus data ini?");
-            if (!confirmed) {
-                e.preventDefault();
-            }
+        const message = e.target.getAttribute("data-confirm");
+        if (message && !confirm(message)) {
+            e.preventDefault();
         }
     });
 }
@@ -149,6 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
     initThemeToggle();
     initNavToggle();
     initTableFilter();
-    initValidasiForm();
-    initActionConfirm();
+    initFormValidation();
+    initConfirmForms();
 });

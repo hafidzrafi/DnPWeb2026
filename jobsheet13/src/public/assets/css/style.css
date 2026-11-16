@@ -1,4 +1,4 @@
-/* ===== Reset & Base ===== */
+/* Reset and base */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,7 +21,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Header & Navbar (Flexbox) */
+/* Header and navbar */
 header {
     background-color: #1d5b8a;
     color: #fff;
@@ -68,7 +68,7 @@ header nav a {
     font-weight: 500;
 }
 
-/* ===== Main Layout ===== */
+/* Main layout */
 main {
     max-width: 1000px;
     margin: 2rem auto;
@@ -88,7 +88,7 @@ section h2 {
     color: #1d5b8a;
 }
 
-/* ===== Kartu Statistik (CSS Grid) ===== */
+/* Statistic cards */
 main section:nth-of-type(2) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -114,7 +114,7 @@ main section:nth-of-type(2) article p {
     color: #1d5b8a;
 }
 
-/* ===== Tabel ===== */
+/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -139,26 +139,7 @@ tbody tr:hover {
     background-color: #eef4fa;
 }
 
-td button {
-    padding: 0.35rem 0.7rem;
-    margin-right: 0.35rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85rem;
-}
-
-td button:first-of-type {
-    background-color: #f0ad4e;
-    color: #fff;
-}
-
-td button:last-of-type {
-    background-color: #d9534f;
-    color: #fff;
-}
-
-/* ===== Form ===== */
+/* Forms */
 form p {
     margin-bottom: 1rem;
 }
@@ -180,21 +161,7 @@ form select {
     font-size: 1rem;
 }
 
-form button[type="submit"] {
-    background-color: #1d5b8a;
-    color: #fff;
-    border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-form button[type="submit"]:hover {
-    background-color: #164869;
-}
-
-/* ===== Footer ===== */
+/* Footer */
 footer {
     text-align: center;
     padding: 1.25rem;
@@ -202,12 +169,12 @@ footer {
     font-size: 0.9rem;
 }
 
-/* ===== Tabel Responsif ===== */
+/* Responsive tables */
 .table-responsive {
     overflow-x: auto;
 }
 
-/* Hamburger Menu (JS-driven) */
+/* Collapsed navigation toggle */
 .nav-toggle {
     display: none;
     font-size: 1.5rem;
@@ -219,7 +186,7 @@ footer {
     padding: 0.25rem 0.5rem;
 }
 
-/* Pesan Error Validasi */
+/* Validation errors */
 .error {
     display: block;
     color: #d9534f;
@@ -227,20 +194,12 @@ footer {
     margin-top: 0.25rem;
 }
 
-/* Kolom Pencarian */
-.search-box {
-    margin-bottom: 1rem;
+/* Inline row forms */
+.inline-form {
+    display: inline;
 }
 
-.search-box input {
-    width: 100%;
-    max-width: 320px;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #cdd4da;
-    border-radius: 4px;
-}
-
-/* Responsive Breakpoints */
+/* Breakpoints */
 @media (max-width: 768px) {
     .header-container {
         flex-wrap: wrap;
@@ -285,7 +244,7 @@ footer {
     }
 }
 
-/* Flash Messages */
+/* Flash messages */
 .flash {
     padding: 12px 16px;
     margin-bottom: 20px;
@@ -303,7 +262,7 @@ footer {
     border: 1px solid #fecaca;
 }
 
-/* ===== Card & Grid ===== */
+/* Cards */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -327,7 +286,7 @@ footer {
     margin-bottom: 1.5rem;
 }
 
-/* ===== Auth Container ===== */
+/* Authentication screens */
 .auth-container {
     max-width: 450px;
     margin: 2rem auto;
@@ -372,7 +331,7 @@ footer {
     margin-top: 1.5rem;
 }
 
-/* ===== Buttons & Navbar Extras ===== */
+/* Buttons and navbar controls */
 .btn {
     display: inline-block;
     padding: 0.6rem 1.25rem;
@@ -417,6 +376,16 @@ footer {
     color: #fff;
 }
 
+.btn-success {
+    background-color: #16a34a;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #15803d;
+    color: #fff;
+}
+
 .btn-sm {
     padding: 0.35rem 0.65rem;
     font-size: 0.85rem;
@@ -442,7 +411,7 @@ footer {
     text-decoration: none;
 }
 
-/* Dark Theme */
+/* Dark theme */
 .theme-toggle {
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -461,6 +430,18 @@ footer {
 .theme-toggle:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.08);
+}
+
+.theme-toggle .icon-sun {
+    display: none;
+}
+
+html.dark-theme .theme-toggle .icon-moon {
+    display: none;
+}
+
+html.dark-theme .theme-toggle .icon-sun {
+    display: block;
 }
 
 html.dark-theme body {
@@ -510,8 +491,7 @@ html.dark-theme form label {
     color: #cbd5e1;
 }
 html.dark-theme form input,
-html.dark-theme form select,
-html.dark-theme .search-box input {
+html.dark-theme form select {
     background-color: #0f172a;
     color: #f8fafc;
     border-color: #334155;
@@ -528,10 +508,13 @@ html.dark-theme .btn-secondary:hover {
     background-color: #475569;
 }
 html.dark-theme footer {
-    color: #64748b;
+    color: #94a3b8;
+}
+html.dark-theme main a:not(.btn) {
+    color: #7dd3fc;
 }
 
-/* ===== Modern Stats Cards & Overview ===== */
+/* Overview cards */
 .stats-overview {
     margin-bottom: 2rem;
 }
@@ -580,7 +563,7 @@ html.dark-theme footer {
     border-left: 4px solid #f59e0b;
 }
 
-/* ===== Status Badges ===== */
+/* Status badges */
 .badge {
     display: inline-block;
     font-size: 0.75rem;
@@ -601,7 +584,7 @@ html.dark-theme footer {
     border-color: #bbf7d0;
 }
 
-/* ===== Search Box & Table Toolbar ===== */
+/* Table toolbar */
 .table-toolbar {
     margin-bottom: 1rem;
     display: flex;
@@ -628,20 +611,12 @@ html.dark-theme footer {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
-/* ===== Action Buttons ===== */
-.btn-success {
-    background-color: #16a34a;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: background-color 0.2s;
-}
-.btn-success:hover {
-    background-color: #15803d;
+.card-link {
+    display: inline-block;
+    margin-top: 12px;
 }
 
-/* ===== Inline Validation Error ===== */
+/* Inline validation messages */
 .error-inline {
     display: block;
     margin-top: 4px;
@@ -654,7 +629,7 @@ html.dark-theme footer {
     box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15) !important;
 }
 
-/* ===== Dark Theme Extensions ===== */
+/* Dark theme overrides */
 html.dark-theme .stat-card {
     background-color: #1e293b;
     border-color: #334155;

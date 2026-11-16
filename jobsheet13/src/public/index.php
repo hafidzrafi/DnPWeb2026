@@ -54,12 +54,12 @@ try {
     <div class="card">
         <h3>Modul Buku</h3>
         <p>Kelola koleksi buku, cek stok, tambah judul baru, dan perbarui data.</p>
-        <a href="books/list.php" class="btn">Daftar Buku &rarr;</a>
+        <a href="books/list.php" class="card-link">Daftar Buku &rarr;</a>
     </div>
     <div class="card">
         <h3>Modul Anggota</h3>
         <p>Kelola data anggota peminjam, nomor identitas, dan kontak.</p>
-        <a href="members/list.php" class="btn">Daftar Anggota &rarr;</a>
+        <a href="members/list.php" class="card-link">Daftar Anggota &rarr;</a>
     </div>
     <div class="card">
         <h3>Transaksi Peminjaman</h3>

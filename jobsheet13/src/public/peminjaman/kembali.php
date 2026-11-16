@@ -71,10 +71,10 @@ try {
                         <td><?= e($item['tanggal_pinjam']) ?></td>
                         <td><span class="badge badge-warning">Dipinjam</span></td>
                         <td>
-                            <form action="proses_kembali.php" method="POST" class="form-kembali" style="display:inline;" onsubmit="return confirm('Proses pengembalian buku \'<?= addslashes($item['judul']) ?>\' oleh <?= addslashes($item['nama']) ?>?');">
+                            <form action="proses_kembali.php" method="POST" class="inline-form" data-confirm="Catat pengembalian buku <?= e($item['judul']) ?> oleh <?= e($item['nama']) ?>?">
                                 <?= csrf_field() ?>
                                 <input type="hidden" name="id" value="<?= e($item['id']) ?>">
-                                <button type="submit" class="btn btn-success" style="padding: 4px 10px; font-size: 0.85rem;">Kembalikan</button>
+                                <button type="submit" class="btn btn-success btn-sm">Kembalikan</button>
                             </form>
                         </td>
                     </tr>
