@@ -1,6 +1,5 @@
--- Jobsheet 8: skema awal database simpus_mini (PostgreSQL)
--- Jalankan setelah membuat database, misal:
---   createdb simpus_mini
+-- Books and members tables for the SIMPUS-Mini schema (PostgreSQL).
+-- Run after creating the database: createdb simpus_mini
 --   psql -d simpus_mini -f sql/01_buku_anggota.sql
 
 CREATE TABLE IF NOT EXISTS buku (

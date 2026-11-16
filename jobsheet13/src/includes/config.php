@@ -1,8 +1,7 @@
 <?php
-// Kredensial database dipisahkan dari kode halaman.
-// Nilai diambil dari environment variable server; default di bawah hanya untuk
-// pengembangan lokal dan bukan kredensial produksi. Jangan mengganti default
-// dengan kredensial asli lalu meng-commit file ini.
+// Values come from the server environment. The defaults below are local
+// development placeholders, not production credentials; never replace them
+// with real credentials and commit the file.
 return [
     'db_host' => getenv('DB_HOST') ?: 'localhost',
     'db_port' => getenv('DB_PORT') ?: '5432',

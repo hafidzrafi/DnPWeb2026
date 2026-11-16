@@ -1,9 +1,8 @@
 <?php
 $config = require __DIR__ . '/config.php';
 
-// PostgreSQL lokal biasanya berjalan tanpa TLS, sedangkan penyedia hosting
-// mewajibkan sslmode=require. Nilai default mengikuti kebutuhan hosting dan
-// dapat diturunkan lewat DB_SSLMODE=disable saat pengembangan lokal.
+// Local PostgreSQL runs without TLS while most hosts require sslmode=require.
+// The default follows the host; DB_SSLMODE=disable relaxes it for local work.
 $ssl_mode = getenv('DB_SSLMODE') ?: 'require';
 
 try {

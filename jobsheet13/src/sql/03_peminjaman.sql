@@ -1,5 +1,5 @@
--- Jobsheet 12: tabel peminjaman, menghubungkan buku, anggota, dan users
--- Jalankan: psql -d simpus_mini -f sql/03_peminjaman.sql
+-- Loan records linking books and members. Requires 01 and 02 first.
+-- Run: psql -d simpus_mini -f sql/03_peminjaman.sql
 
 CREATE TABLE IF NOT EXISTS peminjaman (
     id SERIAL PRIMARY KEY,
