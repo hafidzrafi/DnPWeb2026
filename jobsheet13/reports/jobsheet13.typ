@@ -248,9 +248,24 @@
         README mencantumkan struktur folder beserta satu baris keterangan per direktori. Tujuannya
         agar pembaca dapat menemukan berkas yang harus diubah saat menambah modul: konfigurasi di
         `includes/`, skema di `sql/`, dan dokumentasi di `docs/`.
+
+        === Document Root yang Berbeda dari Jobsheet
+
+        Jobsheet menjalankan aplikasi dengan `php -S localhost:8000` dari folder aplikasi, sehingga
+        seluruh isi folder itu dapat diminta lewat HTTP. Susunan di sini memindahkan berkas publik ke
+        `public/` dan meminta server diarahkan ke sana. Perbedaannya bukan pilihan gaya: perintah
+        jobsheet dijalankan apa adanya pada susunan ini menghasilkan HTTP 404 untuk `/index.php`
+        sekaligus HTTP 200 untuk `/sql/01_buku_anggota.sql`, artinya skema dan isi `includes/`
+        terbaca dari browser sementara aplikasinya sendiri tidak dapat dibuka.
+
+        Karena itu README mencantumkan `-t public` pada perintah server, dan `includes/`, `sql/`,
+        serta `docs/` berada satu tingkat di atas document root. Konsekuensinya, perintah pada
+        jobsheet tidak dipakai apa adanya; perintah yang benar ada di README dan di bagian
+        Instalasi laporan ini.
       ],
       langkah: (
         [Menulis ulang `README.md` dengan diagram ERD, matriks fitur per peran, langkah instalasi, dan tabel environment variable.],
+        [Menjalankan perintah jobsheet `php -S` tanpa `-t public` untuk memastikan susunan ini memang memerlukan document root terpisah, lalu mencatat hasilnya.],
         [Menjalankan setiap langkah manual pengguna pada server `jobsheet13/src/public` dan mengambil tangkapan layar.],
         [Menyimpan gambar ke `docs/img/` dengan nama yang mengikuti nomor langkah, lalu merujuknya dari markdown.],
         [Memeriksa setiap tautan gambar menunjuk berkas yang ada.],
