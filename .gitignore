@@ -18,3 +18,5 @@ answers.md
 # Documentation & Notes
 *.md
 !README.md
+!jobsheet*/src/docs/*.md
+!jobsheet*/src/README.md
