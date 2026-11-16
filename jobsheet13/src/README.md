@@ -156,6 +156,9 @@ Override konfigurasi diuji dengan database terpisah: `DB_NAME=simpus_laprak_alt`
 menampilkan dashboard kosong dari database baru tanpa satu baris kode pun diubah.
 
 Setelah document root dipindah ke `public/`, permintaan `/sql/01_buku_anggota.sql` dan
-`/includes/config.php` menghasilkan 404 pada server yang melayani `public/` sebagai root, sedangkan
-`/assets/css/style.css` tetap 200. Alur registrasi, login, daftar buku, daftar anggota, peminjaman,
-dan riwayat diuji ulang pada struktur baru.
+`/includes/config.php` tidak pernah menyentuh berkas aslinya: server menjawab dengan
+`index.php` dari document root, sehingga yang keluar hanya redirect ke halaman Login. PHP built-in
+server 8.5 selalu memakai `index.php` untuk path yang tidak ada, jadi status yang terlihat 302,
+bukan 404; web server produksi menjawab 404 untuk path yang sama. `/assets/css/style.css` tetap
+200. Alur registrasi, login, daftar buku, daftar anggota, peminjaman, dan riwayat diuji ulang pada
+struktur baru.
