@@ -1,10 +1,6 @@
 <?php
-/**
- * Jobsheet 12 - Integrasi Modul Peminjaman
- * Skeleton proses_kembali.php
- */
-session_start();
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/csrf.php';
 require_once __DIR__ . '/../includes/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -12,14 +8,48 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$peminjaman_id = $_POST['peminjaman_id'] ?? null;
+csrf_verify();
 
-// TODO: Langkah 1 - Pastikan data peminjaman ada dan statusnya masih 'dipinjam'
+$id = $_POST['id'] ?? null;
+if (!$id) {
+    header('Location: kembali.php');
+    exit;
+}
 
-// TODO: Langkah 2 - Gunakan Transaction (PDO beginTransaction, commit, rollBack):
-// a. UPDATE peminjaman SET status = 'kembali', tanggal_kembali = CURRENT_DATE WHERE id = :id
-// b. UPDATE buku SET stok = stok + 1 WHERE id = :buku_id
+try {
+    $pdo->beginTransaction();
 
-$_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil dikembalikan dan stok diperbarui.'];
+    $stmt = $pdo->prepare("SELECT buku_id, status FROM peminjaman WHERE id = :id FOR UPDATE");
+    $stmt->execute([':id' => $id]);
+    $trx = $stmt->fetch();
+
+    if (!$trx || $trx['status'] !== 'dipinjam') {
+        throw new Exception('Transaksi tidak ditemukan atau buku sudah dikembalikan sebelumnya.');
+    }
+
+    $update_trx = $pdo->prepare(
+        "UPDATE peminjaman SET status = 'dikembalikan', tanggal_kembali = CURRENT_DATE WHERE id = :id"
+    );
+    $update_trx->execute([':id' => $id]);
+
+    $update_stok = $pdo->prepare("UPDATE buku SET stok = stok + 1 WHERE id = :buku_id");
+    $update_stok->execute([':buku_id' => $trx['buku_id']]);
+
+    $pdo->commit();
+
+    $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil dikembalikan. Stok bertambah kembali 1.'];
+} catch (PDOException $e) {
+    if ($pdo->inTransaction()) {
+        $pdo->rollBack();
+    }
+    error_log('SIMPUS-Mini: ' . $e->getMessage());
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Gagal memproses pengembalian karena kesalahan database.'];
+} catch (Exception $e) {
+    if ($pdo->inTransaction()) {
+        $pdo->rollBack();
+    }
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => $e->getMessage()];
+}
+
 header('Location: kembali.php');
 exit;
